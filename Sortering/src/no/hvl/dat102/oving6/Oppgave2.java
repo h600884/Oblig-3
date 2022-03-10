@@ -3,7 +3,7 @@ package no.hvl.dat102.oving6;
 public class Oppgave2 {
 
     // Utvalgssortering
-    public static <T extends Comparable<T>> void utvalgsSortering(T[] data) {
+    public static <T extends Comparable<T>> void utvalgsSort(T[] data) {
         int minstePos;
         for (int i = 0; i < data.length - 1; i++) {
             minstePos = i;
@@ -18,7 +18,7 @@ public class Oppgave2 {
         }
     }
     // Sortering ved innsetting
-    public static <T extends Comparable<T>> void sorteringVedInnsetting(T[] data) {
+    public static <T extends Comparable<T>> void sortVedInnsetting(T[] data) {
         for (int i = 1; i < data.length; i++) {
             T nokkel = data[i];
             int p = i;
@@ -31,33 +31,33 @@ public class Oppgave2 {
         }
     }
 
-    private static <T> void swap(T[] tab, int i, int j) {
+    private static <T> void bytt(T[] tab, int i, int j) {
         T tmp = tab[i];
         tab[i] = tab[j];
         tab[j] = tmp;
     }
 
     private static <T extends Comparable<T>> int finnPartisjon(T[] data, int min, int maks) {
-        T temp, pivot;
+        T temp, p;
         int midten = (min + maks) / 2;
-        pivot = data[midten];
-        swap(data, midten, min);
+        p = data[midten];
+        bytt(data, midten, min);
 
         int venstre = min + 1;
         int hoyre = maks;
         while (venstre < hoyre) {
 
-            while (venstre < hoyre && data[venstre].compareTo(pivot) <= 0) {
+            while (venstre < hoyre && data[venstre].compareTo(p) <= 0) {
                 venstre++;
             }
-            while (data[hoyre].compareTo(pivot) > 0) {
+            while (data[hoyre].compareTo(p) > 0) {
                 hoyre--;
             }
             if (venstre < hoyre) {
-                swap(data, venstre, hoyre);
+                bytt(data, venstre, hoyre);
             }
         }
-        swap(data, min, hoyre);
+        bytt(data, min, hoyre);
         return hoyre;
     }
 
@@ -70,10 +70,10 @@ public class Oppgave2 {
         }
     }
 
-    private static <T extends Comparable<T>> void flette(T[] tabell, int forste, int midten, int siste) {
+    private static <T extends Comparable<T>> void flette(T[] tab, int forste, int midten, int siste) {
 
-        int storrelse = siste - forste + 1;
-        T[] hjelpeTabell =  (T[]) (new Comparable[storrelse]);
+        int strl = siste - forste + 1;
+        T[] hjelpeTab =  (T[]) (new Comparable[strl]);
 
         int forsteV = forste;
         int sisteV = midten;
@@ -83,49 +83,49 @@ public class Oppgave2 {
         int h = 0;
 
         while (forsteV <= sisteV && forsteH <= sisteH) {
-            if (tabell[forsteV].compareTo(tabell[forsteH]) <= 0) {
-                hjelpeTabell[h] = tabell[forsteV];
+            if (tab[forsteV].compareTo(tab[forsteH]) <= 0) {
+                hjelpeTab[h] = tab[forsteV];
                 forsteV++;
             } else {
-                hjelpeTabell[h] = tabell[forsteH];
+                hjelpeTab[h] = tab[forsteH];
                 forsteH++;
             }
             h++;
         }
 
         while (forsteV <= sisteV) {
-            hjelpeTabell[h] = tabell[forsteV];
+            hjelpeTab[h] = tab[forsteV];
             forsteV++;
             h++;
         }
 
         while (forsteH <= sisteH) {
-            hjelpeTabell[h] = tabell[forsteH];
+            hjelpeTab[h] = tab[forsteH];
             forsteH++;
             h++;
         }
 
         h = 0;
         for (int indeks = forste; indeks <= siste; indeks++) {
-            tabell[indeks] = hjelpeTabell[h];
+            tab[indeks] = hjelpeTab[h];
             h++;
         }
     }
 
     // Flettesortering
-    public static <T extends Comparable<T>> void fletteSort(T[] tabell, int forste, int siste) {
+    public static <T extends Comparable<T>> void fletteSort(T[] tab, int forste, int siste) {
         if (forste < siste) {
             int midten = (forste + siste) / 2;
-            fletteSort(tabell, forste, midten);
-            fletteSort(tabell, midten + 1, siste);
-            flette(tabell, forste, midten, siste);
+            fletteSort(tab, forste, midten);
+            fletteSort(tab, midten + 1, siste);
+            flette(tab, forste, midten, siste);
         }
     }
 
     public static void main(String[] args) {
         Integer[] tab = { 69, 96, 21, 36, 78, 666, 999, 23, 54, 1 };
-        // utvalgsSortering(tab);
-        // sorteringVedInnsetting(tab);
+        //utvalgsSort(tab);
+        //sortVedInnsetting(tab);
         //fletteSort(tab, 0, tab.length - 1);
         kvikkSort(tab, 0, tab.length -1);
 

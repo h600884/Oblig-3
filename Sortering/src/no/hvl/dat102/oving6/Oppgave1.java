@@ -65,8 +65,8 @@ public class Oppgave1 {
 
         // Sorterer tabellen i stigende rekkefølge
         //Sorter(tab);
-
         SorteringAvToEl(tab);
+
         double sluttTid = System.nanoTime();
         double totalTid = sluttTid - startTid;
 
